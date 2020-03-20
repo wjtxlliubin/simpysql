@@ -11,7 +11,7 @@ class Expression(object):
 
     def format_column(self, key, model=None):
         if model is not None and model.columns and key in model.columns:
-            return '"{}"'.format(key)
+            return '`{}`'.format(key)
         return key
 
     def format_string(self, key):
@@ -25,7 +25,7 @@ class Expression(object):
 
     def list_to_str(self, data):
         if data and isinstance(data, list):
-            return tuple(data).__str__()
+            return '({})'.format(data[0]) if len(data) == 1 else tuple(data).__str__()
         if data and isinstance(data, tuple):
             return data.__str__()
         elif isinstance(data, BaseBuilder):
